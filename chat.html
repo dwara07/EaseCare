@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat Application</title>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		"Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+	background-color: #f0f4ff;
+	height: 100vh;
+	margin: 0;
+	overflow: hidden;
+}
+
+.chat-container {
+	display: flex;
+	height: 100vh;
+	background-color: #fff;
+	max-width: 1400px;
+	margin: 0 auto;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chat-box {
+	display: flex;
+	flex: 1;
+	background-color: #fff;
+}
+
+.users-list {
+	width: 300px;
+	background-color: #fff;
+	border-right: 1px solid #e1e1e1;
+	overflow-y: auto;
+}
+
+.chatting-container {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	background-color: #f0f4ff;
+}
+
+.messages {
+	flex: 1;
+	padding: 20px;
+	overflow-y: auto;
+	background-color: #f0f4ff;
+}
+
+.date-divider {
+	text-align: center;
+	margin: 20px 0;
+	position: relative;
+}
+
+.date-divider span {
+	background-color: #3f51b5;
+	color: white;
+	padding: 5px 15px;
+	border-radius: 15px;
+	font-size: 0.9em;
+}
+
+.message-input-container {
+	display:flex;
+	gap:10px;
+	padding: 20px;
+	background-color: #fff;
+	border-top: 1px solid #e1e1e1;
+}
+
+.message-input-container input {
+	width: 100%;
+	padding: 15px;
+	border: 1px solid #e1e1e1;
+	border-radius: 8px;
+	font-size: 1em;
+	background-color: #f8f9fa;
+}
+
+.message-input-container input::placeholder {
+	color: #adb5bd;
+}
+
+.message-box {
+	max-width: 70%;
+	margin: 8px 0;
+	padding: 12px 16px;
+	border-radius: 12px;
+	font-size: 0.95em;
+	line-height: 1.4;
+	position: relative;
+}
+
+button {
+	font-family: inherit;
+	font-size: 20px;
+	background: royalblue;
+	color: white;
+	padding: 0.7em 1em;
+	padding-left: 0.9em;
+	display: flex;
+	align-items: center;
+	border: none;
+	border-radius: 16px;
+	overflow: hidden;
+	transition: all 0.2s;
+	cursor: pointer;
+}
+
+button span {
+	display: block;
+	margin-left: 0.3em;
+	transition: all 0.3s ease-in-out;
+}
+
+button svg {
+	display: block;
+	transform-origin: center center;
+	transition: transform 0.3s ease-in-out;
+}
+
+button:hover .svg-wrapper {
+	animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+button:hover svg {
+	transform: translateX(1.2em) rotate(45deg) scale(1.1);
+}
+
+button:hover span {
+	transform: translateX(5em);
+}
+
+button:active {
+	transform: scale(0.95);
+}
+
+@keyframes fly-1 {from { transform:translateY(0.1em);
+	
+}
+
+to {
+	transform: translateY(-0.1em);
+}
+
+}
+.text-align-end {
+	margin-left: auto;
+	background-color: #e3f2fd;
+	color: #1a237e;
+	border-bottom-right-radius: 4px;
+}
+
+.text-align-start {
+	background-color: #fff;
+	color: #37474f;
+	border-bottom-left-radius: 4px;
+}
+
+.username-btn {
+	padding: 15px;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #f0f0f0;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.username-btn:hover {
+	background-color: #f8f9fa;
+}
+
+.user-item {
+	flex: 1;
+	color: #37474f;
+	font-size: 0.95em;
+	margin: 0;
+}
+
+.available-green-circle, .available-red-circle {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin: 0;
+}
+
+.available-green-circle {
+	background-color: #4caf50;
+}
+
+.available-red-circle {
+	background-color: #f44336;
+}
+
+.chat-header {
+	padding: 15px 20px;
+	background-color: #fff;
+	border-bottom: 1px solid #e1e1e1;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.chat-header h1 {
+	font-size: 1.2em;
+	color: #37474f;
+	font-weight: 500;
+}
+
+@media ( max-width : 768px) {
+	.users-list {
+		width: 100%;
+		display: none;
+	}
+	.chat-box.show-users .users-list {
+		display: block;
+	}
+	.chat-box.show-users .chatting-container {
+		display: none;
+	}
+	.message-box {
+		max-width: 85%;
+	}
+}
+</style>
+</head>
+<body>
+	<div class="chat-container">
+		<div class="chat-box">
+			<div class="users-list" id="usersList">
+				<!-- User list will be populated here -->
+			</div>
+			<div class="chatting-container">
+				<div class="chat-header">
+					<h1>Chat</h1>
+				</div>
+				<div class="messages" id="messages">
+					<div class="date-divider">
+						<span>Oct 09</span>
+					</div>
+					<h2>Select a user to chat</h2>
+				</div>
+				<div class="message-input-container">
+					<input type="text" id="messageInput"
+						placeholder="Enter your message...">
+					<button id="sendMessageBtn">
+						<div class="svg-wrapper-1">
+							<div class="svg-wrapper">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+									width="24" height="24">
+        <path fill="none" d="M0 0h24v24H0z"></path>
+        <path fill="currentColor"
+										d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+      </svg>
+							</div>
+						</div>
+						<span>Send</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+        let origin = window.location.origin;
+        let host = "10.52.0.166";
+        let socket = null;
+        let currentReceiverId = "";
+        let currentSenderId = "";
+        let currentSenderName = "";
+        let currentReceiverName = "";
+
+        // Fetch logged-in user and initialize WebSocket connection
+        function fetchLoggedInUser() {
+            console.log('Fetching logged-in user...');
+            return fetch(`${origin}/projectWithFullStack/getLoggedInUser`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch logged-in user');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Logged-in user data:', data);
+                    currentSenderId = data.userId;
+                    currentSenderName = data.name;
+                    console.log("current sender name logged in user : ", currentSenderName);
+
+                    // Initialize WebSocket connection after getting logged-in user
+                    socket = new WebSocket("ws://" + host + ":8080/projectWithFullStack/chat?user_id=" + currentSenderId);
+                    socket.onopen = function (event) {
+                        console.log("dtaaaaaa", data);
+                        console.log('Connected to the WebSocket server');
+                    };
+
+                    socket.onmessage = function (event) {
+                        console.log("Received message:", event);
+                        const message = JSON.parse(event.data);
+                        console.log("messs", message);
+
+                        let isOnline = message.isOnline;
+                        let nameFromMessage = message.userName;
+                        if (nameFromMessage === undefined) {
+                            nameFromMessage = message.sender_name;
+                            isOnline = true;
+                        }
+                        console.log("Online Status:", nameFromMessage, " - ", isOnline);
+                        // Convert message.userName to match the modified class name format
+                        let userClass = nameFromMessage.replaceAll(" ", '-');
+                        console.log("uc",userClass);
+                        
+                        const wholeuser = document.querySelector(`.users-list .${userClass}`);
+                        console.log("whole", wholeuser);
+
+
+                        // Ensure the user element exists
+                        if (wholeuser) {
+                            const statusSpan = wholeuser.querySelector("div"); // The span element for status
+
+                            // Update availability status
+                            if (isOnline) {
+                                statusSpan.classList.remove('available-red-circle');
+                                statusSpan.classList.add('available-green-circle');
+                            } else {
+                                statusSpan.classList.remove('available-green-circle');
+                                statusSpan.classList.add('available-red-circle');
+                            }
+                            // }
+                            console.log("iii", currentReceiverName);
+
+                            // Handle displaying the chat message
+                            if (message.sender_name !== undefined && currentReceiverName !== "") {
+                                console.log("sns", message.sender_name);
+
+                                const messagesDiv = document.getElementById('messages');
+
+                                const newMessage = document.createElement('div');
+                                newMessage.classList.add("message-box");
+                                newMessage.classList.add("text-align-start");
+
+                                let messageText = document.createElement("p");
+
+                                let timeDiv = document.createElement("p");
+                                timeDiv.innerText = message.time;
+                                newMessage.appendChild(timeDiv);
+                                timeDiv.classList.add("timestamp-style");
+
+                                messageText.textContent = `${nameFromMessage}: ${message.content}`;
+                                newMessage.appendChild(messageText);
+                                messagesDiv.appendChild(newMessage);
+                                messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
+
+                            }
+                        }
+                    };
+
+                    socket.onclose = function (event) {
+                        console.log("close ev ", event);
+
+                        console.log('WebSocket connection closed');
+                    };
+
+                    socket.onerror = function (event) {
+                        console.error('WebSocket error:', event);
+                    };
+
+                    return data.userId;
+                })
+                .catch(error => {
+                    console.error('Error fetching logged-in user:', error);
+                });
+        }
+
+        // Fetch users excluding the logged-in user
+        function fetchUsersExceptLoggedIn(userId) {
+            return fetch(`${origin}/projectWithFullStack/getUsersExceptLoggedIn?userId=${userId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch users list');
+                    }
+                    return response.json();
+                })
+                .then(users => {
+                    return users;
+                })
+                .catch(error => {
+                    console.error('Error fetching users:', error);
+                });
+        }
+
+        // Fetch chat history between users
+        function fetchChatHistory(senderId, receiverId) {
+            return fetch(`${origin}/projectWithFullStack/getChatHistory?senderId=${senderId}&receiverId=${receiverId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch chat history');
+                    }
+                    return response.json();
+                })
+                .then(messages => {
+                    return messages;
+                })
+                .catch(error => {
+                    console.error('Error fetching chat history:', error);
+                });
+        }
+
+        // Get logged-in user and populate the user list
+        fetchLoggedInUser()
+            .then(userId => {
+                if (userId) {
+                    fetchUsersExceptLoggedIn(userId)
+                        .then(users => {
+                            const usersListDiv = document.getElementById('usersList');
+                            usersListDiv.innerHTML = '';  // Clear previous list
+                            if (users != undefined) {
+                                users.forEach(user => {
+                                    let wholeuser = document.createElement("div");
+                                    wholeuser.classList.add("username-btn");
+
+                                    // Convert spaces to dashes to avoid invalid class names
+                                    let userClass = user.name.replace(/\s+/g, '-');
+                                    wholeuser.classList.add(userClass);
+
+                                    const userItem = document.createElement('p');
+                                    let span = document.createElement("div");
+                                    userItem.classList.add('user-item');
+
+                                    // Display availability status
+                                    if (user.isAvailable) {
+                                        span.classList.add('available-green-circle');
+                                    } else {
+                                        span.classList.add('available-red-circle');
+                                    }
+
+                                    // Display username
+                                    userItem.innerHTML = `${user.name}`;
+                                    userItem.onclick = function () {
+                                        currentReceiverId = user.userId;
+                                        loadChatHistory(user.userId);
+                                    };
+
+                                    wholeuser.appendChild(userItem);
+                                    wholeuser.appendChild(span);
+                                    usersListDiv.appendChild(wholeuser);
+                                });
+                            }
+
+                        });
+                }
+            })
+            .catch(error => console.error('Error during user fetch:', error));
+
+        // Load chat history when a user is selected
+        function loadChatHistory(receiverId) {
+            fetchChatHistory(currentSenderId, receiverId)
+                .then(messages => {
+                    const messagesDiv = document.getElementById('messages');
+                    messagesDiv.innerHTML = '';  // Clear previous messages
+                    console.log("sendId", currentSenderId, "  recId", currentReceiverId);
+                    console.log("receiveid", receiverId);
+
+                    messages.forEach(message => {
+                        currentReceiverName = message.senderName;
+                        console.log("history mes", message);
+                        let timeStamp = message.timestamp;
+                        console.log("time", timeStamp);
+                        const messageDiv = document.createElement('div');
+                        let messageText = document.createElement("p");
+                        let timeDiv = document.createElement("p");
+
+                        timeDiv.innerText = timeStamp;
+                        timeDiv.classList.add("timestamp-style"); // Add this for styling
+                        if (message.senderName === currentSenderName) {
+                            // console.log("equals");
+                            messageText.textContent = `You : ${message.content}`;
+                            messageDiv.classList.add("text-align-end");
+                        }
+                        else {
+                            messageText.textContent = `${message.senderName}: ${message.content}`;
+                            // console.log("not equlas");
+                            messageDiv.classList.add("text-align-start");
+                        }
+                        messageDiv.classList.add(currentReceiverName);
+                        messageDiv.appendChild(timeDiv);
+                        messageDiv.appendChild(messageText);
+                        messageDiv.classList.add("message-box");
+                        messagesDiv.appendChild(messageDiv);
+                    });
+                })
+                .catch(error => console.error('Error loading chat history:', error));
+        }
+
+        // Send message when the button is clicked
+        document.getElementById('sendMessageBtn').onclick = function () {
+            let currentTime = getFormattedDateTime();
+            const messageInput = document.getElementById('messageInput');
+            const messageContent = messageInput.value.trim();
+
+            if (!currentReceiverId) {
+                alert("Please select a user to chat with!");
+                return;
+            }
+            console.log("recename", currentReceiverName);
+
+            if (messageContent !== '') {
+                const message = {
+                    sender_id: currentSenderId,
+                    sender_name: currentSenderName,
+                    receiver_id: currentReceiverId,
+                    receiver_name: currentReceiverName,
+                    content: messageContent,
+                    time: currentTime
+                };
+                const messagesDiv = document.getElementById('messages');
+
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add("text-align-end", "message-box");
+
+                let timeDiv = document.createElement("p");
+                timeDiv.classList.add("timestamp-style");
+                timeDiv.innerText = currentTime;
+                messageDiv.appendChild(timeDiv);
+
+                let newMessage = document.createElement("p");
+                newMessage.innerText = `You : ${message.content}`;
+                messageDiv.appendChild(newMessage);
+
+                messagesDiv.appendChild(messageDiv);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                socket.send(JSON.stringify(message));
+                messageInput.value = ''; // Clear the input field
+            }
+        };
+
+        function getFormattedDateTime() {
+            const now = new Date();
+
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        console.log(getFormattedDateTime()); // Example Output: 2025-02-13 10:19:14
+
+
+        // Optional: Send message when Enter key is pressed
+        document.getElementById('messageInput').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                document.getElementById('sendMessageBtn').click();
+            }
+        });
+    </script>
+</body>
+</html>

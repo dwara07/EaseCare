@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EaseCare Dashboard</title>
+<link rel="stylesheet" href="dashboard-style.css">
+
+<link rel="stylesheet" href="particular-service.css">
+<link rel="stylesheet" href="edit-style.css">
+<link rel="stylesheet" href="settings-style.css">
+<link rel="stylesheet" href="personInfo.css">
+<link rel="stylesheet" href="chat-style.css">
+<link rel="stylesheet" href="careTaker-style.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+	integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+	<!-- Message Modal -->
+	<div class="modal" id="messageModal">
+		<div class="modal-content">
+			<div id="messageIcon" class="modal-icon"></div>
+			<h2 class="modal-title" id="messageTitle"></h2>
+			<p class="modal-message" id="messageText"></p>
+			<div class="modal-buttons">
+				<button class="ok-button" id="messageOkBtn">OK</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Logout Confirmation Popup -->
+	<div id="logoutPopup" class="popup">
+		<div class="popup-content">
+			<p>Are you sure you want to log out?</p>
+			<button id="yesButton">Yes</button>
+			<button id="noButton">No</button>
+		</div>
+	</div>
+
+
+
+
+	<!-- Work Confirmation Modal -->
+	<div id="work-confirmation-modal" class="work-confirmation-modal">
+		<div class="work-confirmation-modal-content">
+			<h3 class="work-confirmation-title">Confirm Work Acceptance</h3>
+			<p class="work-confirmation-text">Do you want to accept this
+				work?</p>
+			<div class="work-confirmation-buttons">
+				<button id="work-confirmation-yes"
+					class="work-confirmation-btn work-confirmation-yes">Yes</button>
+				<button id="work-confirmation-no"
+					class="work-confirmation-btn work-confirmation-no">No</button>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="app">
+		<!-- Mobile Header -->
+		<div class="mobile-header">
+			<h1>EaseCare</h1>
+			<button class="menu-toggle">
+				<i data-lucide="menu"></i>
+			</button>
+		</div>
+
+		<!-- Sidebar -->
+		<aside class="sidebar">
+			<div class="sidebar-header">
+				<img class="logo-image" style="width: 40px"
+					src="https://media-hosting.imagekit.io//0255d69015cb4044/Screenshot_from_2025-02-25_10-31-12-removebg-preview.png?Expires=1835067762&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Fz4tL70V5FgvH9geUZ1LdctqHDFZkfSmwLUvyKzDE~aMEMWS9QRxJzhtowUWVvSARSwTI4lrvTXzMWfTwENWvZ7YmM8XjT9KFjq3d0YInGPN~kzUzWB64oai2AXWlWvpAFRoRuxFVC-bHfehbfA60jsSXXpnZo5uyDGDOe7UU0G3w6hJrjoCam2ddqXlB6V80GcomMM3INSP8MIkhkW7wZzVWnbkR2twNASsaFOnX9cIr0YaMc8K9L~pkfdSnEPDzYSpGGRbAQ1FU2cDRpj9KRs7nQ1tUsCvAcGaMjFWFd88SRt0k5iXE3R0K1y~0TMASkxomt9QI6AJNMfGOnPXFA" />
+				<h1>EaseCare</h1>
+			</div>
+			<nav class="sidebar-nav">
+				<button class="nav-item active" data-view="dashboard">
+					<i data-lucide="layout-dashboard"></i> <span>Dashboard</span>
+				</button>
+				<button class="nav-item" data-view="request-service"
+					id="none-req-ser">
+					<i data-lucide="clipboard-list"></i> <span>Request Service</span>
+				</button>
+				<button class="nav-item" id="serviceButton">
+					<i data-lucide="bell"></i> <span>Services</span>
+				</button>
+				<button class="nav-item" data-view="caretaker" id="careTakerButton">
+					<i class="fa-solid fa-circle-info" data-lucide="hand-shake"></i><span>Care
+						takers</span>
+				</button>
+				<button class="nav-item setButton" data-view="settings">
+					<i data-lucide="settings"></i> <span>Settings</span>
+				</button>
+				<button class="nav-item" data-view="chat">
+					<i class="fa-solid fa-comments" data-lucide="Chat"></i> <span>Chat</span>
+				</button>
+				<button class="nav-item" id="logoutButton">
+					<i data-lucide="log-out"></i> <span>Log Out</span>
+				</button>
+
+			</nav>
+		</aside>
+
+
+
+
+		<!-- Main Content -->
+		<main class="main-content">
+
+			<!-- start of  Feedback form -->
+
+			<section class="feedback-overlay"></section>
+
+			<section class="caretaker-feedback-body">
+				<div class="caretaker-feedback-container">
+					<h2 class="caretaker-feedback-h2">Feedback Form</h2>
+					<form class="caretaker-feedback-form">
+						<label for="caretaker-feedback-name"
+							class="caretaker-feedback-label">Name:</label> <input type="text"
+							id="caretaker-feedback-name" name="name"
+							class="caretaker-feedback-input" required>
+						<label for="caretaker-feedback-comments"
+							class="caretaker-feedback-label">Comments:</label>
+						<textarea id="caretaker-feedback-comments" name="comments"
+							rows="4" class="caretaker-feedback-textarea" required></textarea>
+
+						<button type="submit" class="caretaker-feedback-button">Submit</button>
+					</form>
+				</div>
+			</section>
+			<!-- ebd of  Feedback form -->
+
+
+			<!-- Video call html -->
+			<section class="video-call-body">
+				<div class="video-call-container">
+					<div class="video-call-user-info">
+						<h1 class="video-call-heading">📹 Video Call</h1>
+						<h2 class="video-call-subheading" id="video-call-username"></h2>
+						<h2 class="video-call-subheading" id="video-call-peer"></h2>
+					</div>
+
+					<div class="video-call-main-video">
+						<video id="video-call-remote" class="video-call-video" autoplay
+							playsinline></video>
+						<video id="video-call-local" class="video-call-local-video"
+							autoplay playsinline muted></video>
+					</div>
+
+					<div class="video-call-controls">
+						<button id="video-call-start"
+							class="video-call-button video-call-start-button">Start
+							Call</button>
+						<button id="video-call-end"
+							class="video-call-button video-call-end-button">End Call</button>
+						<button id="video-call-mute-video"
+							class="video-call-button video-call-mute-button">Mute
+							Video</button>
+						<button id="video-call-mute-audio"
+							class="video-call-button video-call-mute-button">Mute
+							Audio</button>
+					</div>
+				</div>
+
+				<!-- Incoming Call Modal  -->
+				<div class="video-call-modal" id="video-call-incoming-modal">
+					<div class="video-call-modal-content">
+						<div class="video-call-modal-icon">📞</div>
+						<h2 class="video-call-modal-title">Incoming Call</h2>
+						<p class="video-call-modal-message" id="video-call-caller-name"></p>
+						<div class="video-call-modal-buttons">
+							<button class="video-call-button video-call-accept-button"
+								id="video-call-accept">Accept</button>
+							<button class="video-call-button video-call-decline-button"
+								id="video-call-decline">Decline</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- >Message Modal -->
+				<div class="video-call-modal" id="video-call-message-modal">
+					<div class="video-call-modal-content">
+						<div id="video-call-message-icon" class="video-call-modal-icon"></div>
+						<h2 class="video-call-modal-title" id="video-call-message-title"></h2>
+						<p class="video-call-modal-message" id="video-call-message-text"></p>
+						<div class="video-call-modal-buttons">
+							<button class="video-call-button video-call-accept-button"
+								id="video-call-message-ok">OK</button>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- End of video call -->
+
+
+			<!-- Report Users -->
+
+			<!-- Report Users -->
+
+			<div class="particular-caretaker-overlay"
+				id="particular-caretaker-overlay"></div>
+
+			<!-- Report User Popup -->
+			<div class="particular-caretaker-popup"
+				id="particular-caretaker-popup">
+				<button class="particular-caretaker-close"
+					id="particular-caretaker-close">✖</button>
+				<h2>Report User</h2>
+				<form id="particular-caretaker-form">
+					<div class="form-group">
+						<label>From</label> <input type="text"
+							id="particular-caretaker-from" value="farkath" readonly>
+					</div>
+
+					<div class="form-group">
+						<label>To</label> <input type="text" id="particular-caretaker-to"
+							value="pooja" readonly>
+					</div>
+
+					<div class="form-group">
+						<label>Write your complaint</label>
+						<textarea id="particular-caretaker-complaint" required
+							placeholder="Please provide details about your complaint..."></textarea>
+					</div>
+
+					<button type="submit" class="particular-caretaker-submit">Submit</button>
+				</form>
+
+				<!-- Success message (hidden by default) -->
+				<div class="particular-caretaker-success"
+					id="particular-caretaker-success">
+					<div class="success-icon">✓</div>
+					<h3>Report Submitted</h3>
+					<p>Thank you for your report. We will review it and take
+						appropriate action.</p>
+					<button class="particular-caretaker-close-success"
+						id="particular-caretaker-close-success">Close</button>
+				</div>
+			</div>
+
+
+			<!-- end of report users -->
+
+
+
+			<!-- end of report users -->
+
+
+
+			<!-- Dashboard View -->
+			<div class="view dashboard active">
+				<!-- Welcome Card -->
+				<div class="welcome-card">
+					<div class="welcome-header">
+						<img class="avatar img-profile-photo" />
+						<h2 id="logged-user">Hello, sand !</h2>
+					</div>
+					<p id="day-and-total-service">Today is Monday, January 28. You
+						have 3 service jobs today.</p>
+					<p class="welcome-footer">Have a great day!</p>
+				</div>
+
+				<!-- Stats Grid -->
+				<div class="stats-grid">
+					<div class="stat-card">
+						<h3 id="total-title">Total Services</h3>
+						<p id="hiring-count">0</p>
+					</div>
+					<div class="stat-card">
+						<h3 id="client-happy">Client Happiness</h3>
+						<p id="client-happy-percentage">89%</p>
+					</div>
+					<div class="stat-card">
+						<h3 id=dashboard-exp>Experience</h3>
+						<p id="user-total-experience">36 Exp</p>
+					</div>
+				</div>
+
+				<!-- 			<!-- Timeline -->
+				<!--  <div class="timeline-card">
+					<h3>Timeline</h3>
+					<div class="timeline">
+						<div class="timeline-day">22</div>
+						<div class="timeline-day">23</div>
+						<div class="timeline-day active">24</div>
+						<div class="timeline-day">25</div>
+						<div class="timeline-day highlight">26</div>
+						<div class="timeline-day highlight">27</div>
+						<div class="timeline-day">28</div>
+					</div>
+				</div>-->
+
+				<!-- Bottom Grid -->
+				<div class="bottom-grid">
+					<!-- Stats Card -->
+					<div class="stats-card">
+						<h3>Stats</h3>
+						<div class="progress-section">
+							<div class="progress-item">
+								<p>Success Rate</p>
+								<div class="progress-bar">
+									<div class="progress-fill success"></div>
+								</div>
+							</div>
+							<div class="progress-item">
+								<p>Failure Rate</p>
+								<div class="progress-bar">
+									<div class="progress-fill failure"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Services Card -->
+										<!-- Services Card -->
+					<div class="services-card">
+						<h3>Service Composition</h3>
+						<div class="service-list">
+							<div class="service-item">
+								<!-- <div class="service-icon">
+								</div> -->
+								<img alt="" class="service-icon" src="https://www.lanecove.nsw.gov.au/files/sharedassets/public/v/1/pets.jpg?w=1080">
+								<div class="service-info">
+									<p class="service-name">Pet Sitting</p>
+									<p class="service-percentage">0%</p>
+								</div>
+							</div>
+							<div class="service-item">
+								<img alt="" class="service-icon" src="https://t3.ftcdn.net/jpg/01/89/85/98/360_F_189859885_1wKqbrGPsoX7E2eH5aVfieSGsxeLKHgC.jpg">
+								<div class="service-info">
+									<p class="service-name">Baby Sitting</p>
+									<p class="service-percentage">0%</p>
+								</div>
+							</div>
+							<div class="service-item">
+								<img alt="" class="service-icon" src="https://images.pexels.com/photos/3768131/pexels-photo-3768131.jpeg?cs=srgb&dl=pexels-olly-3768131.jpg&fm=jpg">
+								<div class="service-info">
+									<p class="service-name">Elderly Care</p>
+									<p class="service-percentage">0%</p>
+								</div>
+							</div>
+							<div class="service-item">
+								<img alt="" class="service-icon" src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg">
+								<div class="service-info">
+									<p class="service-name">House Sitting</p>
+									<p class="service-percentage">0%</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<section id="your-jobs-section">
+					<h2>User Activity</h2>
+					<div id="jobs-container">
+						<p id="no-jobs-message">NO JOBS</p>
+					</div>
+				</section>
+			</div>
+
+
+
+			<!-- Request Service View -->
+			<div class="view request-service">
+				<form class="form-container" method="post"
+					action="/projectWithFullStack/requestService">
+					<div class="form-section">
+						<h3>Service Details</h3>
+						<label for="service-title" class="required-label">Service
+							Title</label> <input type="text" name="tittle" id="service-title"
+							required> <label class="required-label">Service
+							Required</label>
+						<div class="checkbox-group">
+							<label><input type="checkbox" name="required"
+								value="Baby Sitting"> Baby Sitting</label> <label><input
+								type="checkbox" name="required" value="Pet Sitting"> Pet
+								Sitting</label> <label><input type="checkbox" name="required"
+								value="Elderly Care"> Elderly Care</label> <label><input
+								type="checkbox" name="required" value="House Sitting">
+								House Sitting</label>
+						</div>
+
+						<div class="time-group">
+							<div class="time-input">
+								<label for="start-time" class="required-label">Start
+									Time</label> <input type="time" name="start" id="start-time" required>
+							</div>
+							<div class="time-input">
+								<label for="end-time" class="required-label">End Time</label> <input
+									type="time" id="end-time" name="end" required>
+							</div>
+						</div>
+
+						<label for="description" class="required-label">Service
+							Description</label>
+						<textarea id="description" rows="4" name="description" required></textarea>
+					</div>
+
+					<div class="form-section">
+						<h3>Service Pricing</h3>
+						<div class="apply-flex">
+							<div>
+								<label for="amount" class="required-label">Amount</label> <input
+									type="number" name="amount" id="amount" required>
+							</div>
+							<div>
+								<label for="unit" class="required-label">Unit</label> <select
+									id="unit" name="unit" required>
+									<option value="₹">INR - Indian Rupee</option>
+									<option value="$">USD - US Dollar</option>
+									<option value="€">EUR - Euro</option>
+									<option value="£">GBP - British Pound</option>
+									<option value="¥">JPY - Japanese Yen</option>
+									<option value="$">AUD - Australian Dollar</option>
+									<option value="$">SGD - Singapore Dollar</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-section">
+						<h3>Caretaker Preferences</h3>
+						<label class="required-label">Gender</label>
+						<div class="radio-group">
+							<label><input type="radio" name="gender" value="Male"
+								required>Male</label> <label><input type="radio"
+								name="gender" value="Female" required>Female</label> <label><input
+								type="radio" name="gender" value="Other" required>Other</label>
+						</div>
+
+						<label class="required-label">Education</label>
+						<div class="radio-group">
+							<label><input type="radio" name="education"
+								value="Degree" required>Degree</label> <label><input
+								type="radio" name="education" value="12th" required>12th</label>
+							<label><input type="radio" name="education" value="Other"
+								required>Any</label>
+						</div>
+
+						<label class="required-label">Age Range</label>
+						<div class="age-range">
+							<input type="number" placeholder="Minimum" name="min" required>
+							<input type="number" placeholder="Maximum" name="max" required>
+						</div>
+					</div>
+
+					<button id="req-submit-btn" class="submit-button">Submit
+						Request</button>
+				</form>
+			</div>
+
+			<!-- Services view -->
+			<div class="services-container">
+				<h3>Services</h3>
+				<input type="text" placeholder="Search" class="search-bar"
+					id="searchInput">
+
+				<div class="service-list" id="ser-list">
+					<div class="service-card">
+						<div class="service-info">
+							<span class="title">Baby Sitter in my work time</span>
+						</div>
+						<div class="tags">
+							<span class="category">Baby Sitting</span> <span class="location">Tamilnadu,
+								Chennai</span> <span class="availability open">Open</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Settings View -->
+			<div class="view settings">
+				<div class="settings-container">
+					<h1 class="settings-h1">Settings</h1>
+
+					<section class="card">
+						<h2 class="settings-h2">Notifications</h2>
+						<div class="notification-setting">
+							<label>Receive mails from EaseCare's latest updates</label> <label
+								class="switch"> <input type="checkbox"
+								id="receive-mail-toggle" name="receive_mail_from_carelink">
+								<span class="slider"></span>
+							</label>
+						</div>
+						<div class="notification-setting notify-service" id="none-notify2">
+							<label>Notify all service</label> <label class="switch">
+								<input type="checkbox" id="notify-all-toggle" name="notify_all">
+								<span class="slider"></span>
+							</label>
+						</div>
+						<div class="notification-setting" id="none-notify1">
+							<label>Notify only if anyone in your city needs service</label> <label
+								class="switch"> <input type="checkbox"
+								id="notify-only-toggle" name="notify_only"> <span
+								class="slider"></span>
+							</label>
+						</div>
+					</section>
+
+
+					<section class="card">
+						<h2 class="settings-h2">Address</h2>
+						<form class="address-form">
+							<div class="set-form-group" id="settings-country">
+								<label>Country</label> <input type="text" id="country-input"
+									name="country" placeholder="Enter your country">
+							</div>
+							<div class="set-form-group" id="settings-address">
+								<label>Address</label> <input type="text" id="address-input"
+									name="street" placeholder="Enter your address">
+							</div>
+							<div class="form-row">
+								<div class="set-form-group" id="settings-city">
+									<label>City</label> <input type="text" id="city-input"
+										name="city" placeholder="Enter your city">
+								</div>
+								<div class="set-form-group" id="settings-state">
+									<label>State</label> <input type="text" id="state-input"
+										name="state" placeholder="Enter your state">
+								</div>
+							</div>
+							<div class="set-form-group" id="settings-zip-code">
+								<label>Zip Code</label> <input type="text" id="zip-code-input"
+									name="pin_code" placeholder="Enter zip code">
+							</div>
+						</form>
+					</section>
+
+					<a id="settings-submit-btn">Submit</a>
+
+				</div>
+			</div>
+
+			<!-- Caretakers Info -->
+
+			<div class="view caretaker all-caretaker-container">
+				<div class="care-profile-card">
+					<div class="care-avatar"></div>
+					<div class="care-profile-info">
+						<div class="care-profile-header">
+							<h2 class="care-name">Kelsey Bones</h2>
+							<span class="care-location">London, UK</span>
+						</div>
+						<p class="care-desc">Hey! I'm kelsey, a dedicated caregiver
+							with over [X] years of experience in babysitting, pet sitting,
+							and elderly care. I provide reliable and compassionate care to
+							ensure a safe and nurturing environment for your loved ones.</p>
+					</div>
+					<div class="care-exp">36 Exp</div>
+				</div>
+			</div>
+
+
+			<!-- Particular CareTaker Info -->
+			<div class="view caretaker-all-details-container"
+				id="caretaker-all-details-container"></div>
+
+
+			<!--  particular service page -->
+
+			<section class="service-particular-fullbody">
+				<div class="service-particular-container">
+					<div class="service-particular-profile-section">
+						<img class="service-particular-profile-image"/>
+						<div class="service-particular-whole-div">
+							<div class="service-particular-i">
+								<i class="fa-solid fa-xmark"></i>
+							</div>
+							<div class="service-particular-action-buttons">
+								<button class="service-particular-chat-btn">chat</button>
+								<button class="service-particular-request-btn">Request
+									Meeting</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="service-particular-service-card">
+						<h1>Baby sitter in my work time</h1>
+
+						<p class="service-particular-description">Hi, I'm Jessica,
+							looking for a trustworthy babysitter to care for my child during
+							my work hours. I need someone who is responsible, experienced,
+							and kind, available from 9 AM to 5 PM on weekdays. My child is 8
+							years old and enjoys engaging activities and outdoor play.</p>
+
+						<div class="service-particular-service-details">
+							<h2>Service Details</h2>
+
+							<div class="service-particular-detail-row">
+								<span class="service-particular-label">Name</span> <span
+									class="service-particular-value"
+									id="service-particular-person-name"></span>
+							</div>
+
+							<div class="service-particular-detail-row">
+								<span class="service-particular-label">Category</span> <span
+									class="service-particular-value">Baby Sitting</span>
+							</div>
+
+							<div class="service-particular-detail-row">
+								<span class="service-particular-label">Amount</span> <span
+									class="service-particular-value" id="service-particular-amount"></span>
+							</div>
+
+							<div class="service-particular-detail-row">
+								<span class="service-particular-label">Time</span> <span
+									class="service-particular-value" id="service-particular-time"></span>
+							</div>
+
+							<div class="service-particular-detail-row">
+								<span class="service-particular-label">Address</span>
+								<div class="service-particular-address-box"></div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</section>
+
+			<!--  === -->
+
+			<!--  ====chat page here==== -->
+
+
+			<section class="view chat-section chat">
+				<div class="chat-container">
+					<div class="chat-box">
+						<div class="users-list" id="usersList">
+							<!-- User list will be populated here -->
+						</div>
+						<div class="chatting-container">
+							<div class="chat-header">
+								<h1>Chat</h1>
+							</div>
+							<div class="messages" id="messages">
+								<div class="date-divider">
+									<!-- <span>Oct 09</span> -->
+								</div>
+								<h2>Select a user to chat</h2>
+							</div>
+							<div class="message-input-container">
+								<input type="text" id="messageInput"
+									placeholder="Enter your message...">
+								<button id="sendMessageBtn">
+									<div class="svg-wrapper-1">
+										<div class="svg-wrapper">
+											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+												width="24" height="24">
+        <path fill="none" d="M0 0h24v24H0z"></path>
+        <path fill="currentColor"
+													d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+      </svg>
+										</div>
+									</div>
+									<span>Send</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+
+			<!--   ==== -->
+
+		</main>
+
+		<section class="edit-profile">
+			<div class="container">
+				<header>
+					<h1 class="edit-h1">Edit Profile</h1>
+					<div class="header-actions">
+						<!-- <div class="notification"></div> -->
+						<div class="menu-button">
+							<i class="fa-solid fa-xmark"></i>
+						</div>
+					</div>
+				</header>
+
+				<section class="sec1">
+					<div class="left-column">
+						<section class="photo-section">
+							<div class="photo-container">
+								<img class="profile-photo img-profile-photo" src=""
+									alt="Profile Photo" />
+							</div>
+							<p>Your Photo</p>
+							<p class="subtitle">This will be displayed on your profile</p>
+
+							<div class="photo-buttons">
+								<input type="file" id="fileInput" style="display: none;"
+									accept="image/*" />
+								<button class="upload-btn" onclick="triggerFileUpload()">Upload
+									New</button>
+								<button class="save-btn" onclick="savePhoto()">Save</button>
+							</div>
+						</section>
+
+						<section class="personal-info">
+							<h2 class="edit-h2">Personal Information</h2>
+							<div class="form-group">
+								<label>Full Name</label> <input id="full-name" type="text"
+									placeholder="Enter your full name">
+							</div>
+							<div class="form-group">
+								<label>Email Address</label>
+								<div class="email-group" id="set-email">
+									<input type="email" placeholder="Enter your email">
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Mobile Number</label> <input id="edit_mobile" type="tel"
+									placeholder="Enter your mobile number">
+							</div>
+							<div class="form-group">
+								<label>Gender</label>
+								<div class="gender-options">
+									<label class="radio-label"> <input type="radio"
+										name="gender" value="male"> <span>Male</span>
+									</label> <label class="radio-label"> <input type="radio"
+										name="gender" value="female"> <span>Female</span>
+									</label> <label class="radio-label"> <input type="radio"
+										name="gender" value="non-binary"> <span>Non-binary</span>
+									</label>
+								</div>
+							</div>
+						</section>
+					</div>
+
+					<div class="right-column">
+						<section class="bio-section">
+							<h2 class="edit-h2">Bio</h2>
+							<textarea id="edit-profile-bio-textarea"
+								placeholder="Hi, I'm [Name], a dedicated caregiver with over [X] years of experience in babysitting, pet sitting, and elderly care. I provide reliable and compassionate care to ensure a safe and nurturing environment for your loved ones."></textarea>
+						</section>
+
+						<section class="services-section">
+							<h2 class="edit-h2">Services Interested In</h2>
+							<div class="services-grid">
+								<label class="checkbox-label"> <input type="checkbox"
+									id="baby-sitting" name="service" value="baby-sitting">
+									<span>Baby Sitting</span>
+								</label> <label class="checkbox-label"> <input type="checkbox"
+									id="pet-sitting" name="service" value="pet-sitting"> <span>Pet
+										Sitting</span>
+								</label> <label class="checkbox-label"> <input type="checkbox"
+									id="elderly-care" name="service" value="elderly-care">
+									<span>Elderly Care</span>
+								</label> <label class="checkbox-label"> <input type="checkbox"
+									id="house-sitting" name="service" value="house-sitting">
+									<span>House Sitting</span>
+								</label>
+							</div>
+
+						</section>
+
+						<section class="change-password-section">
+							<label class="" for="cp">Change Password <input
+								type="text" id="cp" />
+							</label>
+						</section>
+
+						<section class="documents-section">
+							<h2 class="edit-h2">Legal Documents</h2>
+							<div class="form-group">
+								<label>Government Id</label> <input type="text"
+									placeholder="Enter government ID details">
+							</div>
+							<!-- <div class="form-group">
+                                <label>Certificates</label>
+                                <input type="text" placeholder="Enter certificate details">
+                            </div> -->
+						</section>
+						<button class="save-info-btn">Save Informations</button>
+					</div>
+				</section>
+			</div>
+		</section>
+
+
+		<!-- Profile Section -->
+		<aside class="profile-section">
+			<div class="profile-header">
+				<button class="help-btn">
+					<i data-lucide="help-circle"></i>
+				</button>
+				<div id="notificationsContainer">
+					<h1 id="bellIcon">🔔</h1>
+					<div id="notificationsList">
+						<h2 class="noti-text-color-blue">Notifications</h2>
+						<ul id="notificationItems"></ul>
+					</div>
+				</div>
+
+			</div>
+			<div class="profile-card">
+				<img class="profile-avatar-large img-profile-photo" src="" />
+				<h3 id="profile-name">Sand</h3>
+			</div>
+
+			<button class="edit-profile-btn">Edit Profile</button>
+
+		</aside>
+
+		<!-- Mobile Overlay -->
+		<div class="mobile-overlay"></div>
+	</div>
+
+</body>
+
+<script src="chatbot.js"></script>
+
+
+<script src="dashboard-script.js"></script>
+
+
+</html>

@@ -17,20 +17,19 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 		Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 	line-height: 1.5;
-	color: #fff;
+	color: #ffffff;
 	height: 100vh;
-}
-
-#show-msg-invalid {
-	padding-top: 6px;
-	display:none;
-	color: red;
 }
 
 html {
 	height: -webkit-fill-available;
 }
-
+.gender {
+	width:160px;
+	height:40px;
+	padding:10px;
+	border-radius: 3px;
+}
 .container {
 	min-height: 100vh;
 	min-height: -webkit-fill-available;
@@ -211,27 +210,27 @@ h1 {
 	margin-bottom: 0.5rem;
 }
 
-.signup-text {
-	color: #9ca3af;
-	margin-bottom: 2rem;
-	font-size: clamp(0.875rem, 3vw, 1rem);
+/* form tag*/
+form {
+	max-width: 330px;
 }
 
-.signup-link {
-	color: rgb(37, 99, 235);
-	text-decoration: none;
-}
-
-.signup-link:hover {
-	color: rgb(29, 78, 216);
-}
-
-.input-group {
+.form-group {
 	margin-bottom: 1rem;
-	position: relative;
 }
 
-input[type="text"], input[type="email"], input[type="password"] {
+label {
+	display: block;
+	margin-bottom: 0.3rem;
+	font-weight: bold;
+	color: rgb(37, 99, 235);
+}
+
+.required-star {
+	color: red;
+}
+
+input[type="text"], input[type="tel"], input[type="number"] {
 	width: 100%;
 	padding: 0.75rem 1rem;
 	background-color: white;
@@ -249,79 +248,24 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 	box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
 }
 
-.password-group {
-	position: relative;
-}
-
-.toggle-password {
-	position: absolute;
-	right: 0.75rem;
-	top: 50%;
-	transform: translateY(-50%);
-	background: none;
+.next-button {
+	margin-top: 1rem;
+	padding: 0.75rem 1.5rem;
+	background-color: rgb(37, 99, 235);;
+	color: #fff;
 	border: none;
-	color: #9ca3af;
+	border-radius: 4px;
 	cursor: pointer;
-	padding: 0.25rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	font-size: 1rem;
 }
 
-.hidden {
-	display: none;
-}
-
-.remember-forgot {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 1rem;
-}
-
-.remember-me {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-	color: rgb(37, 99, 235);
-	font-size: clamp(0.875rem, 3vw, 1rem);
-}
-
-input[type="checkbox"] {
-	width: 1rem;
-	height: 1rem;
-	border-radius: 0.25rem;
-	border: 1px solid rgb(37, 99, 235);
-	background-color: white;
-	cursor: pointer;
-}
-
-.forgot-link {
- 	color: rgb(37, 99, 235);
-	text-decoration: none;
-	font-size: clamp(0.875rem, 3vw, 1rem);
-}
-
-.forgot-link:hover {
-	color: rgb(29, 78, 216);
-}
-
-.submit-btn {
-	width: 100%;
-	margin-top: 1em;
-	padding: 0.75rem;
-	background-color: rgb(37, 99, 235);
-	color: white;
-	border: none;
-	border-radius: 0.5rem;
-	font-size: clamp(0.875rem, 3vw, 1rem);
-	font-weight: 500;
-	cursor: pointer;
-	transition: background-color 0.2s;
-}
-
-.submit-btn:hover {
+.next-button:hover {
 	background-color: rgb(29, 78, 216);
+}
+
+.tag {
+	font-size: 1.3rem;
+	margin-bottom: 0.5em;
 }
 
 @media ( min-width : 576px) {
@@ -411,7 +355,7 @@ input[type="checkbox"] {
 			</div>
 		</div>
 
-		<!-- Right Section - Login Form -->
+
 		<div class="right-section">
 			<div class="header">
 				<button class="mobile-logo">EaseCare</button>
@@ -421,63 +365,78 @@ input[type="checkbox"] {
 						stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m12 19-7-7 7-7" />
                         <path d="M19 12H5" />
-                    </svg> Back to website
+                    </svg>
 				</a>
 			</div>
 
 			<div class="form-container">
-				<h1>LOGIN TO EaseCare</h1>
-				<p class="signup-text">
-					New to EaseCare? <a href="register.html" class="signup-link">Create
-						an account</a>
-				</p>
-
-				<form id="login-form" action="Validation"
-					method="post">
-					<div class="input-group">
-						<input type="text" placeholder="Username" name="username" required>
+				<h1 class="add">PERSONAL INFORMATION</h1>
+				<form method="post" action="PersonalInformation">
+					<div class="form-group">
+						<label class="tag" for="age">Age <span
+							class="required-star">*</span></label> <input type="number" id="age"
+							name="age" placeholder="Enter your age" required min="1" />
 					</div>
 
-					<div class="input-group password-group">
-						<input type="password" id="password" placeholder="Password"
-							name="password" required>
-						<button type="button" class="toggle-password">
-							<svg class="eye-icon" xmlns="http://www.w3.org/2000/svg"
-								width="20" height="20" viewBox="0 0 24 24" fill="none"
-								stroke="currentColor" stroke-width="2" stroke-linecap="round"
-								stroke-linejoin="round">
-                                <path
-									d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                                <circle cx="12" cy="12" r="3" />
-                            </svg>
-							<svg class="eye-off-icon hidden"
-								xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-								viewBox="0 0 24 24" fill="none" stroke="currentColor"
-								stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
-                                <path
-									d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
-                                <path
-									d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
-                                <line x1="2" y1="2" x2="22" y2="22" />
-                            </svg>
-						</button>
-
+					<div class="form-group">
+						<label class="tag" for="gender">Gender <span
+							class="required-star">*</span></label> <select class="gender" id="gender"
+							name="gender" required>
+							<option value="female">Female</option>
+							<option value="male">Male</option>
+							<option value="non-binary">Non-binary</option>
+						</select>
 					</div>
-					<p id="show-msg-invalid">Invalid credentials. Please try again.</p>
-					<a href="index.html" class="forgot-link">Forgot password?</a>
-					<button type="submit" class="submit-btn">Sign in</button>
+
+
+					<div class="form-group">
+						<label class="tag" for="phone">Phone Number <span
+							class="required-star">*</span></label> <input type="tel" id="phone"
+							name="phone" placeholder="Enter your phone number" required
+							pattern="[0-9]{10}" />
+					</div>
+
+					<div class="form-group">
+						<label class="tag" for="country">Country <span
+							class="required-star">*</span></label> <input type="text" id="country"
+							name="country" placeholder="Enter your country" required />
+					</div>
+
+					<div class="form-group">
+						<label class="tag" for="state">State <span
+							class="required-star">*</span></label> <input type="text" id="state"
+							name="state" placeholder="Enter your state" required />
+					</div>
+
+					<div class="form-group">
+						<label class="tag" for="city">City <span
+							class="required-star">*</span></label> <input type="text" id="city"
+							name="city" placeholder="Enter your city" required />
+					</div>
+
+					<div class="form-group">
+						<label class="tag" for="street">Street <span
+							class="required-star">*</span></label> <input type="text" id="street"
+							name="street" placeholder="Enter your street" required />
+					</div>
+
+					<div class="form-group">
+						<label class="tag" for="zip">Zip Code <span
+							class="required-star">*</span></label> <input type="number" id="zip"
+							name="code" placeholder="Enter your zip code" required />
+					</div>
+
+					<button type="submit" class="next-button">Submit</button>
 				</form>
+
 			</div>
 		</div>
 	</div>
-
-
 	<script>
-	if (window.location.search.includes("login=error")) {
-        document.getElementById("show-msg-invalid").style.display = "block";
-    }
-	
+        if (window.location.search.includes("login=error")) {
+            document.getElementById("show-msg-invalid").style.opacity = "1";
+        }
+
         // Carousel data
         const carouselData = [
             {
@@ -587,23 +546,6 @@ input[type="checkbox"] {
 
         // Initialize carousel
         const carousel = new Carousel(carouselData);
-
-        // Password visibility toggle
-        document.querySelector('.toggle-password').addEventListener('click', function () {
-            const password = document.getElementById('password');
-            const eyeIcon = document.querySelector('.eye-icon');
-            const eyeOffIcon = document.querySelector('.eye-off-icon');
-
-            if (password.type === 'password') {
-                password.type = 'text';
-                eyeIcon.classList.add('hidden');
-                eyeOffIcon.classList.remove('hidden');
-            } else {
-                password.type = 'password';
-                eyeIcon.classList.remove('hidden');
-                eyeOffIcon.classList.add('hidden');
-            }
-        });
     </script>
 </body>
 

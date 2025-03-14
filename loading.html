@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .center{
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        img {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="center">
+        <img src="https://www.msha.gov/sites/default/files/images/loading2.gif" alt="Loading...">
+    </div>
+
+    <script>
+        // Get the URL parameter to determine the redirect target
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectUrl = urlParams.get('redirect');
+
+        // Redirect after a small delay (2 seconds)
+        setTimeout(function () {
+             window.location.href = redirectUrl;            
+        }, 2200);
+    </script>
+</body>
+
+</html>

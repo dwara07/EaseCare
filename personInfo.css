@@ -1,0 +1,219 @@
+/* Container */
+.caretaker-all-details-container {
+	display: flex;
+}
+
+.caretaker-all-details-whole-sidebar {
+	width: 30%;
+	background-color: #e6eef7;
+	padding: 20px;
+	border-radius: 10px;
+}
+.caretaker-all-details-whole-sidebar h2{
+	margin-bottom:1em;
+}
+
+.caretaker-all-details-sidebar h2 {
+	font-size: 20px;
+	color: #2a2e75;
+}
+
+.caretaker-personal-info-div h3,
+.caretaker-personal-exp-div h3,
+.caretaker-personal-bio-div h3
+,.serviceh3{
+	margin-top:1em;
+}
+
+.caretaker-profile-picture {
+	width: 100%;
+	height: 250px;
+	background-color: #c3d3e5;
+	border-radius: 10px;
+}
+
+/* Services */
+.caretaker-all-details-services {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.caretaker-all-details-services span {
+	background-color: #b8c7e0;
+	padding: 5px 10px;
+	border-radius: 5px;
+	font-size: 14px;
+}
+.caretaker-all-details-btns{
+	display:flex;
+	gap:1em;
+}
+
+/* Right Section */
+.caretaker-all-details-right-sidebar {
+	width: 70%;
+	margin-left: 5%;
+	background-color: #e6eef7;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+/* Header */
+.caretaker-all-details-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.caretaker-all-details-header h1 {
+	color: #2a2e75;
+	font-size: 24px;
+}
+
+.caretaker-all-details-location {
+	color: #6b6f9a;
+	font-size: 16px;
+}
+
+.caretaker-personal-info-div p,
+.caretaker-personal-exp-div p,
+.caretaker-personal-bio-div p{
+	font-size:1.1em;
+	padding-bottom:1em;
+}
+/* Ratings */
+.caretaker-all-details-rating {
+	background-color: white;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	padding: 16px;
+	border-radius: 10px;
+	margin-top: 20px;
+}
+.caretaker-all-details-rating-score {
+	font-size: 20px;
+	font-weight: bold;
+}
+.caretaker-all-details-whole-star{
+	display:flex;
+	align-items: center;
+	gap:1em;
+	margin-bottom:2em;
+}
+.rating-star{
+	font-size:1.5em;
+}
+.caretaker-all-details-stars span {
+	font-size: 18px;
+	color: #2a2e75;
+}
+
+/* Buttons */
+.caretaker-all-details-actions {
+	display: flex;
+	gap: 10px;
+}
+
+.caretaker-all-details-message-btn, .caretaker-all-details-hire-btn,
+	.caretaker-all-details-report-btn {
+	padding: 8px 15px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 14px;
+}
+.caretaker-profile-cross{
+	font-size:26px;
+	margin-bottom:1em;
+	text-align:end;
+}
+
+.caretaker-all-details-message-btn {
+	background-color: #b8c7e0;
+}
+
+.caretaker-all-details-hire-btn {
+	background-color: #5ca7b2;
+	color: white;
+}
+
+.caretaker-all-details-report-btn {
+	background-color: #d9534f;
+	color: white;
+}
+
+/* Tabs */
+.caretaker-all-details-tabs {
+	display: flex;
+	margin-top: 20px;
+}
+
+.caretaker-all-details-tab {
+	padding: 10px;
+	cursor: pointer;
+	font-weight: bold;
+	color: #2a2e75;
+}
+
+.caretaker-all-details-active {
+	border-bottom: 3px solid #2a2e75;
+}
+
+/* Personal Info */
+.caretaker-all-details-info {
+	background-color: #d9e7f4;
+	padding: 15px;
+	border-radius: 10px;
+	margin-top: 10px;
+}
+
+.caretaker-all-details-info h3 {
+	color: #2a2e75;
+}
+
+.caretaker-all-details-info p {
+	margin: 5px 0;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+	.caretaker-all-details-container {
+		flex-direction: column;
+		align-items: center;
+	}
+	.caretaker-all-details-whole-sidebar {
+		width: 90%;
+	}
+	.caretaker-all-details-right-sidebar {
+		width: 90%;
+		margin-left: 0;
+		margin-top: 20px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.caretaker-all-details-header h1 {
+		font-size: 20px;
+	}
+	.caretaker-all-details-rating {
+		flex-direction: column;
+		align-items: flex-start;
+		
+	}
+	.caretaker-all-details-actions {
+		flex-direction: column;
+	}
+	.caretaker-all-details-services {
+		flex-direction: column;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.caretaker-all-details-container {
+		padding: 10px;
+	}
+	.caretaker-all-details-whole-sidebar,
+		.caretaker-all-details-right-sidebar {
+		width: 100%;
+	}
+}

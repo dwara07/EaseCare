@@ -1,0 +1,180 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.service-particular-fullbody {
+    /* background-color: #f0f7ff; */
+    display:none;
+    /* padding: 20px; */
+}
+.service-particular-whole-div{
+	/* border:1px solid white; */
+	display:flex;
+	flex-direction:column;
+}
+.service-particular-i{
+	margin-bottom:1em;
+	display:flex;
+	justify-content:flex-end;
+}
+
+.service-particular-i > i{
+	font-size:2em;
+    margin-bottom: .7em;
+}
+.service-particular-container {
+/* 	min-height: 100vh;
+ */    display: flex;
+    flex-direction:column;
+    /* justify-content: center; */
+    /* max-width: 800px; */
+   /*  width: 100%; */
+}
+
+.service-particular-profile-section {
+    background-color: #87CEEB;
+    height: 140px;
+    border-radius: 8px 8px 0 0;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.service-particular-profile-image {
+    width: 80px;
+    height: 80px;
+    background-color: #3949AB;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -20px;
+    left: 40px;
+}
+
+.service-particular-action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.service-particular-chat-btn,
+.service-particular-request-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.service-particular-chat-btn {
+    background-color: white;
+    color: #333;
+}
+
+.service-particular-request-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.service-particular-service-card {
+    background-color: white;
+    padding: 40px 20px 20px;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.service-particular-service-card h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.service-particular-description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.service-particular-service-details {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.service-particular-service-details h2 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.service-particular-detail-row {
+    display: flex;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.service-particular-detail-row:last-child {
+    border-bottom: none;
+}
+
+.service-particular-label {
+    flex: 0 0 120px;
+    color: #666;
+    font-weight: bold;
+}
+
+.service-particular-value {
+    color: #333;
+    flex: 1;
+}
+
+.service-particular-address-box {
+    flex: 1;
+    height: 100px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .service-particular-profile-section {
+        height: 160px;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 60px;
+    }
+
+    .service-particular-profile-image {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .service-particular-action-buttons {
+        margin-top: 30px;
+    }
+
+    .service-particular-detail-row {
+        flex-direction: column;
+    }
+
+    .service-particular-label {
+        margin-bottom: 5px;
+    }
+
+    .service-particular-service-card h1 {
+        font-size: 20px;
+    }
+
+    .service-particular-service-card {
+        padding: 30px 15px 15px;
+    }
+}
